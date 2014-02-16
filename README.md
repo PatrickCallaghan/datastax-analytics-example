@@ -26,10 +26,14 @@ To run the bulk loader, this defaults to 1 million rows but to change this add -
 
     mvn clean compile exec:java -Dexec.mainClass="com.datastax.bulkloader.Main" 
 
-To run the analytic function, which finds the top 10 transactions by amount 
+To find the top 10 transactions by amount 
 
-	mvn clean compile exec:java -Dexec.mainClass="com.datastax.analytics.AnalyticsRunner"
+	mvn clean compile exec:java -Dexec.mainClass="com.datastax.analytics.Top10TransactionsByAmountRunner"
 		
+To find the top transactions by amount for each user 
+
+	mvn clean compile exec:java -Dexec.mainClass="com.datastax.analytics.TopTransactionsByAmountForUserRunner"
+
 To remove the tables and the schema, run the following.
 
     mvn clean compile exec:java -Dexec.mainClass="com.datastax.demo.SchemaTeardown"

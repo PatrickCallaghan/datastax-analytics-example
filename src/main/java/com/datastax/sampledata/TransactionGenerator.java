@@ -13,8 +13,8 @@ public class TransactionGenerator {
 		
 		for (int i=0; i < num; i++){
 			Transaction trans = new Transaction();
-			trans.setAmount(Math.random()*4000000);
-			trans.setAcountId(new Double(Math.random()*10000000).intValue() + "");
+			trans.setAmount(Math.random()*1000000);
+			trans.setAcountId(new Double(Math.random()*100000).intValue() + "");
 			trans.setTxtnId(UUID.randomUUID().toString());
 			trans.setTxtnDate(new Date());
 			trans.setType(Math.random() < .5 ? "D" : "C");

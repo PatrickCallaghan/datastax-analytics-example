@@ -16,19 +16,19 @@ import com.datastax.driver.core.Cluster;
 import com.datastax.driver.core.Session;
 import com.datastax.sampledata.Transaction;
 
-public class AnalyticsRunner{
+public class Top10TransactionsByAmountRunner{
 
-	private static Logger logger = LoggerFactory.getLogger(AnalyticsRunner.class);	
+	private static Logger logger = LoggerFactory.getLogger(Top10TransactionsByAmountRunner.class);	
 	
 	private BlockingQueue<Transaction> queue = new ArrayBlockingQueue<Transaction>(1000);
 	private Session session;
 	
-	public AnalyticsRunner() {
+	public Top10TransactionsByAmountRunner() {
 		String contactPointsStr = PropertyHelper.getProperty("contactPoints", "localhost");
 		
 		ExecutorService executor = Executors.newSingleThreadExecutor();
 		
-		Top10TransactionsProcessor top10 = new Top10TransactionsProcessor(queue);
+		Top10TransactionsByAmountProcessor top10 = new Top10TransactionsByAmountProcessor(queue);
 		executor.execute(top10);
 		
 		Cluster cluster = Cluster.builder().addContactPoints(contactPointsStr.split(",")).build();		
@@ -56,6 +56,6 @@ public class AnalyticsRunner{
 	}
 	
 	public static void main(String[] args) {
-		new AnalyticsRunner();		
+		new Top10TransactionsByAmountRunner();		
 	}
 }
