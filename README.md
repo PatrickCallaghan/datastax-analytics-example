@@ -2,7 +2,7 @@ Analytics Example
 ========================================================
 This demo creates the sstable files and loads them through jmx to a cassandra cluster. It then runs a analytics function over the data from that table. The main reason to do this is to show an alternative to hive which can be used in the short term.
 
-This demo finds the top ten transaction by amount. This just uses the automatic paging feature of Cassandra 2 which allows us the add Transactions to a queue while doing a select * from a table.
+This demo finds the top ten transaction by amount and the top transaction for each user. This just uses the automatic paging feature of Cassandra 2 which allows us the add Transactions to a queue while doing a select * from a table.
 
 ## Running the demo 
 
