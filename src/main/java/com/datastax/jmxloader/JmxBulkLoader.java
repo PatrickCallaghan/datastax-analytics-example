@@ -16,10 +16,14 @@ import javax.management.remote.JMXServiceURL;
 import org.apache.cassandra.service.StorageServiceMBean;
 
 import com.datastax.demo.utils.Timer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class JmxBulkLoader {
 
-	private JMXConnector connector;
+    private static Logger logger = LoggerFactory.getLogger(JmxBulkLoader.class);
+
+    private JMXConnector connector;
 	private StorageServiceMBean storageBean;
 	private Timer timer = new Timer();
 
@@ -60,7 +64,7 @@ public class JmxBulkLoader {
 		storageBean.bulkLoad(path);
 		timer.end();
 		
-		System.out.println("Bulk load took " + timer.getTimeTakenSeconds() + "secs.");
+		logger.info("Bulk load took {} secs.", timer.getTimeTakenSeconds());
 	}
 
 	public static void main(String[] args) throws Exception {
