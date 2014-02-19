@@ -4,12 +4,16 @@ import java.io.IOException;
 import java.util.List;
 
 import com.datastax.bulkloader.BulkLoadTransactions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class CreateSSTables {
 
-	public static void createSSTables(BulkLoadTransactions bulkLoader, int totalTrans) throws IOException {
+    private static Logger logger = LoggerFactory.getLogger(CreateSSTables.class);
+
+    public static void createSSTables(BulkLoadTransactions bulkLoader, int totalTrans) throws IOException {
 				
-		int batch = 10000;
+		int batch = 100;
 		int cycles = totalTrans / batch;	
 				
 		for (int i=0; i < cycles; i++){
@@ -17,12 +21,12 @@ public class CreateSSTables {
 			bulkLoader.loadTransactions(transactions);
 			
 			if (cycles % batch == 0){
-				System.out.println("Wrote " + i + " of " + cycles + " cycles. Batch size : " + batch);			
+				logger.info("Wrote {} of {} cycles. Batch size: {}", i, cycles, batch);
 			}
 		}				
 		bulkLoader.finish();
 		
-		System.out.println("Finished file with " + totalTrans + " transactions.");
+		logger.info("Finished file with {} transactions.", totalTrans);
 	}
 
 }

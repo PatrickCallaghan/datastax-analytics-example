@@ -1,11 +1,16 @@
 package com.datastax.sampledata;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
 
 public class CreateSampleData {
+
+    private static Logger logger = LoggerFactory.getLogger(CreateSampleData.class);
 
 	private BufferedWriter out;
 	private int totalTrans = 50000000;
@@ -21,12 +26,12 @@ public class CreateSampleData {
 			this.writeToFile(transactions);
 			
 			if (cycles % 1000 == 0){
-				System.out.println("Wrote " + i + " of " + cycles + " cycles.");			
+				logger.info("Wrote {} of {} cycles", i, cycles);
 			}
 		}
 		
 		out.close();
-		System.out.println("Finished file with " + this.totalTrans + " transactions.");
+		logger.info("Finished file with {} transactions.", totalTrans);
 		System.exit(0);
 	}
 
