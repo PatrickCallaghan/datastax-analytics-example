@@ -15,7 +15,7 @@ public class Main {
 		
 		String host = PropertyHelper.getProperty("jmxhost", "localhost");
 		int port = Integer.parseInt(PropertyHelper.getProperty("jmxport", "7199"));
-		int noOfRows = Integer.parseInt(PropertyHelper.getProperty("noOfRows", "1000000"));
+		int noOfRows = Integer.parseInt(PropertyHelper.getProperty("noOfRows", "100000"));
 		
 		try {
 			

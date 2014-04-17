@@ -56,7 +56,7 @@ public class BulkLoadTransactions {
 
 		testWriter = new SSTableSimpleUnsortedWriter(filePath,
 				new Murmur3Partitioner(), keyspace, tableName,
-				compositeColumn, null, 128);
+				compositeColumn, null, 32);
 	}
 	
 	public File getFilePath(){
@@ -118,9 +118,11 @@ public class BulkLoadTransactions {
 			builder.add(bytes("type"));
 			testWriter.addColumn(builder.build(), bytes(transaction.getType()), timestamp);
 		}
+		
 	}
 
 	public void finish() throws IOException {
+		
 		testWriter.close();
 	}
 }

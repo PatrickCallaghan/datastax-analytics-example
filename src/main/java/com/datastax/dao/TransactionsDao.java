@@ -35,7 +35,7 @@ public class TransactionsDao {
 	public void getAllProducts(BlockingQueue<Transaction> processorQueue){
 
 		Statement stmt = new SimpleStatement("Select * from " + tableNameProduct);
-		stmt.setFetchSize(500);
+		stmt.setFetchSize(2500);
 		ResultSet resultSet = this.session.execute(stmt);
 
 		Iterator<Row> iterator = resultSet.iterator();

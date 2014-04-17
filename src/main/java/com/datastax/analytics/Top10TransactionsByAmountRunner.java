@@ -47,10 +47,10 @@ public class Top10TransactionsByAmountRunner{
 		}
 		
 		timer.end();
-		logger.info("Analytics Runner took : " + timer.getTimeTakenSeconds() + " secs");
+		logger.info("Analytics Runner took : " + timer.getTimeTakenMillis() + "ms");
 		
-		session.shutdown();
-		cluster.shutdown();
+		session.close();
+		cluster.close();
 		
 		System.exit(0);
 	}

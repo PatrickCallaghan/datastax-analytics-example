@@ -1,6 +1,5 @@
 package com.datastax.analytics;
 
-import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
@@ -17,20 +16,20 @@ import com.datastax.driver.core.Cluster;
 import com.datastax.driver.core.Session;
 import com.datastax.sampledata.Transaction;
 
-public class TopTransactionsByAmountForUserRunner{
+public class Top10TransactionsByAmountUnder1000Runner{
 
-	private static Logger logger = LoggerFactory.getLogger(TopTransactionsByAmountForUserRunner.class);	
+	private static Logger logger = LoggerFactory.getLogger(Top10TransactionsByAmountUnder1000Runner.class);	
 	
 	private BlockingQueue<Transaction> queue = new ArrayBlockingQueue<Transaction>(1000);
 	private Session session;
 	
-	public TopTransactionsByAmountForUserRunner() {
+	public Top10TransactionsByAmountUnder1000Runner() {
 		String contactPointsStr = PropertyHelper.getProperty("contactPoints", "localhost");
 		
 		ExecutorService executor = Executors.newSingleThreadExecutor();
 		
-		TopTransactionsByAmountForUserProcessor topForUser = new TopTransactionsByAmountForUserProcessor(queue);
-		executor.execute(topForUser);
+		Top10TransactionsByAmountUnder1000Processor top10 = new Top10TransactionsByAmountUnder1000Processor(queue);
+		executor.execute(top10);
 		
 		Cluster cluster = Cluster.builder().addContactPoints(contactPointsStr.split(",")).build();		
 		this.session = cluster.connect();
@@ -41,10 +40,10 @@ public class TopTransactionsByAmountForUserRunner{
 		timer.start();
 		
 		dao.getAllProducts(queue);		
-		Map<String, Transaction> results = topForUser.getResults();
+		Set<Transaction> results = top10.getResults();
 		
-		for (Transaction trans : results.values()){
-			logger.info(trans.getAcountId() + " - " + trans.toString());
+		for (Transaction trans : results){
+			logger.info(trans.toString());
 		}
 		
 		timer.end();
@@ -57,6 +56,6 @@ public class TopTransactionsByAmountForUserRunner{
 	}
 	
 	public static void main(String[] args) {
-		new TopTransactionsByAmountForUserRunner();		
+		new Top10TransactionsByAmountUnder1000Runner();		
 	}
 }
