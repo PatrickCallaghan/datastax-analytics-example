@@ -2,7 +2,6 @@ package com.datastax.analytics;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 import java.util.concurrent.BlockingQueue;
 
 import com.datastax.sampledata.Transaction;
